@@ -49,7 +49,7 @@ namespace ApplicationLauncher.Forms
             ContextMenuStrip cms = new ContextMenuStrip();
 
             cms.Items.Add("Show favorites");
-            cms.Items.Add("Show all registerd applications");
+            cms.Items.Add("Show all registered applications");
             cms.Items.Add("Settings");
             cms.Items.Add("Close application");
 

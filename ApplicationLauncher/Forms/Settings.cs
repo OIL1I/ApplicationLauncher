@@ -74,6 +74,7 @@ namespace ApplicationLauncher.Forms
             };
 
             li.SetClick(SelectItem);
+            li.UpdatePicbx();
 
             flpanel_items.Controls.Add(li);
             flpanel_items.Update();

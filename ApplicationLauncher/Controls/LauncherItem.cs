@@ -92,6 +92,12 @@ namespace ApplicationLauncher.Controls
             }
         }
 
+        public void UpdatePicbx()
+        {
+            this.picbx_symbol.Image = this.Symbol;
+            this.picbx_symbol.Update();
+        }
+
         public void SetClickToLaunch()
         {
             this.Click += OnLaunch_Click;
