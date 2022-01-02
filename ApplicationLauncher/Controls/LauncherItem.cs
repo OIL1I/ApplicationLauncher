@@ -27,6 +27,8 @@ namespace ApplicationLauncher.Controls
 
             this.picbx_symbol.Image = this.Symbol;
             this.picbx_symbol.Update();
+
+            SetMouseEvents();
         }
 
         public LauncherItem(Data.SaveItem saveItem)
@@ -42,7 +44,11 @@ namespace ApplicationLauncher.Controls
 
             this.picbx_symbol.Image = this.Symbol;
             this.picbx_symbol.Update();
+            SetMouseEvents();
+        }
 
+        private void SetMouseEvents()
+        {
             this.MouseEnter += delegate (object sender, EventArgs e) { OnMouseEnter(); };
             this.MouseLeave += delegate (object sender, EventArgs e) { OnMouseLeave(); };
             foreach (Control c in this.Controls)
