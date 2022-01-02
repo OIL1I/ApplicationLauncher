@@ -282,11 +282,22 @@ namespace ApplicationLauncher.Forms
 
             if (result == DialogResult.OK)
             {
-                //TODO: Delete existing Save files
-                //TODO: Ask user
-                //TODO: Check if Selected Path is Empty
-                Logic.SaveManager.SavePath = dlg.SelectedPath + "\\";
-                txtbx_saveDirectory.Text = dlg.SelectedPath + "\\";
+                var currentPath = txtbx_saveDirectory.Text;
+
+                var mbxResult = MessageBox.Show
+                    ("Are you sure you want to change the savepath ?" + Environment.NewLine +
+                    "This will delete all existing savefiles and is NOT redoable!",
+                    "Changing savepath",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                    );
+
+                if (mbxResult == DialogResult.Yes)
+                {
+                    Logic.SaveManager.SavePath = dlg.SelectedPath + "\\";
+                    txtbx_saveDirectory.Text = dlg.SelectedPath + "\\";
+                    //TODO: delete savefiles
+                }
             }
         }
 
