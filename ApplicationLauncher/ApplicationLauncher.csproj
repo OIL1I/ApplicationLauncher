@@ -56,6 +56,12 @@
     <Compile Include="Exceptions\ChangedSavePathException.cs" />
     <Compile Include="Exceptions\SavePathNotFoundException.cs" />
     <Compile Include="Exceptions\SavePathWasNotSetException.cs" />
+    <Compile Include="Forms\AllApps.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AllApps.Designer.cs">
+      <DependentUpon>AllApps.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\SaveManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +83,9 @@
     <Compile Include="Controls\LauncherItem.Designer.cs">
       <DependentUpon>LauncherItem.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AllApps.resx">
+      <DependentUpon>AllApps.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

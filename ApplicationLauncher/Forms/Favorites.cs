@@ -63,12 +63,18 @@ namespace ApplicationLauncher.Forms
 
         private void ShowAllApllications_Click(object sender, EventArgs e)
         {
-            //TODO: Window with all registered applications
+            for (int i = 0; i < LauncherData.GetItemCount; i++)
+            {
+                var item = LauncherData.GetItem(i);
 
-            // --- Temporary ---
-            notifyIcon1.BalloonTipText = "Work in progress";
-            notifyIcon1.ShowBalloonTip(150);
-            // -----------------
+                item.RemoveClickToLaunch();
+            }
+
+            this.Visible = false;
+            new AllApps().ShowDialog();
+            this.Visible = true;
+
+            ReloadFavorites();
         }
 
         private void QuitApplication_Click(object sender, EventArgs e)
