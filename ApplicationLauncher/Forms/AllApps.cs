@@ -25,6 +25,14 @@ namespace ApplicationLauncher.Forms
         private void AllApps_Load(object sender, EventArgs e)
         {
             OnResize();
+
+            for (int i = 0; i < Data.LauncherData.GetItemCount; i++)
+            {
+                var item = Data.LauncherData.GetItem(i);
+
+                item.SetClickToLaunch();
+                flp_items.Controls.Add(item);
+            }
         }
 
         private void OnResize()
@@ -34,6 +42,14 @@ namespace ApplicationLauncher.Forms
 
             this.Update();
             this.flp_items.Update();
+        }
+
+        private void AllApps_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            foreach (Controls.LauncherItem item in flp_items.Controls)
+            {
+                item.RemoveClickToLaunch();
+            }
         }
     }
 }

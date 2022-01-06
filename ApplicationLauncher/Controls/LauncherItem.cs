@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 namespace ApplicationLauncher.Controls
 {
-    //TODO: Make LauncherItem Control smaller
     public partial class LauncherItem : UserControl
     {
         public bool IsFavorite { get; set; }
