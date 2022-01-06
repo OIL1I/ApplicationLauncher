@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ApplicationLauncher.Logic
 {
+    //TODO: Rework saving --> SaveManager.dll
     public static class SaveManager
     {
         private static string DefaultSavePath = Environment.CurrentDirectory + "\\Saves\\";

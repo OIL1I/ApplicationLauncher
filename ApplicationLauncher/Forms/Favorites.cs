@@ -35,11 +35,11 @@ namespace ApplicationLauncher.Forms
             catch (ArgumentNullException ex)
             {
                 //TODO: Rework Error Message Titles
-                MessageBox.Show(ex.Message, "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Undefined Savepath!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exceptions.SavePathNotFoundException ex)
             {
-                MessageBox.Show(ex.Message, "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Missing savepath directory!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             ReloadFavorites();
         }
@@ -91,7 +91,7 @@ namespace ApplicationLauncher.Forms
             }
             catch (Exceptions.SavePathWasNotSetException ex)
             {
-                var result = MessageBox.Show(ex.Message + Environment.NewLine + "Would you like to set it now?", "Fatal error!", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                var result = MessageBox.Show(ex.Message + Environment.NewLine + "Would you like to set it now?", "Undefined savepath!", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
                 if (result == DialogResult.Yes)
                 {
@@ -102,7 +102,7 @@ namespace ApplicationLauncher.Forms
             }
             catch (Exceptions.SavePathNotFoundException ex)
             {
-                var result = MessageBox.Show(ex.Message + Environment.NewLine + "Would you like to create it?", "Fatal error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                var result = MessageBox.Show(ex.Message + Environment.NewLine + "Would you like to create it?", "Missing savepath directory", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
                 if (result == DialogResult.Yes)
                 {
@@ -112,7 +112,7 @@ namespace ApplicationLauncher.Forms
             }
             catch (Exceptions.ChangedSavePathException ex)
             {
-                var result = MessageBox.Show(ex.Message + Environment.NewLine + "Are you sure ?", "Fatal error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                var result = MessageBox.Show(ex.Message + Environment.NewLine + "Are you sure ?", "Changed savepath", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
                 if (result == DialogResult.Yes)
                 {

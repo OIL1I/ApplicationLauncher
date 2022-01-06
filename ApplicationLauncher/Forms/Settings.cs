@@ -235,7 +235,7 @@ namespace ApplicationLauncher.Forms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message + Environment.NewLine + "Symbol is set back to default.", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message + Environment.NewLine + "Symbol is set back to default.", "Image error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     var li = (flpanel_items.Controls[flpanel_items.SelectionIndex] as Controls.LauncherItem);
                     li.SetSymbolToDefault();
                     this.picbx_itemSymbol.Image = li.DefaultItemSymbol;
