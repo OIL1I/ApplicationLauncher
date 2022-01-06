@@ -27,7 +27,7 @@ namespace ApplicationLauncher.Forms
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i <= Data.LauncherData.GetItemCount; i++ )
+            for (int i = 0; i <= Data.LauncherData.GetItemCount; i++)
             {
                 Data.LauncherData.RemoveItemAt(i);
             }
@@ -284,20 +284,20 @@ namespace ApplicationLauncher.Forms
             {
                 var currentPath = txtbx_saveDirectory.Text;
 
-                var mbxResult = MessageBox.Show
-                    ("Are you sure you want to change the savepath ?" + Environment.NewLine +
-                    "This will delete all existing savefiles and is NOT redoable!",
-                    "Changing savepath",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                    );
+                //var mbxResult = MessageBox.Show
+                //    ("Are you sure you want to change the savepath ?" + Environment.NewLine +
+                //    "This will delete all existing savefiles on closing application and is NOT redoable!",
+                //    "Changing savepath",
+                //    MessageBoxButtons.YesNo,
+                //    MessageBoxIcon.Question
+                //    );
 
-                if (mbxResult == DialogResult.Yes)
-                {
-                    Logic.SaveManager.SavePath = dlg.SelectedPath + "\\";
-                    txtbx_saveDirectory.Text = dlg.SelectedPath + "\\";
-                    //TODO: delete savefiles
-                }
+                //if (mbxResult == DialogResult.Yes)
+                //{
+                Logic.SaveManager.SavePath = dlg.SelectedPath + "\\";
+                txtbx_saveDirectory.Text = dlg.SelectedPath + "\\";
+                //TODO: save previous savepath
+                //}
             }
         }
 

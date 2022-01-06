@@ -16,6 +16,7 @@ namespace ApplicationLauncher.Logic
             #region --- Exceptions ---
             if (string.IsNullOrEmpty(SavePath)) throw new Exceptions.SavePathWasNotSetException(); 
             if (!Directory.Exists(SavePath)) throw new Exceptions.SavePathNotFoundException(SavePath);
+            if (SavePath != DefaultSavePath) throw new Exceptions.ChangedSavePathException();
             #endregion
 
             FileStream fileStream = new FileStream(SavePath + item.itemName + ".sav", FileMode.Create);

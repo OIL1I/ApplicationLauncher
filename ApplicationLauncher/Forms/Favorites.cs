@@ -94,7 +94,7 @@ namespace ApplicationLauncher.Forms
                 }
                 return;
             }
-            catch(Exceptions.SavePathNotFoundException ex)
+            catch (Exceptions.SavePathNotFoundException ex)
             {
                 var result = MessageBox.Show(ex.Message + Environment.NewLine + "Would you like to create it?", "Fatal error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
@@ -103,6 +103,19 @@ namespace ApplicationLauncher.Forms
                     SaveManager.CreateDirectory(SaveManager.SavePath);
                 }
                 return;
+            }
+            catch (Exceptions.ChangedSavePathException ex)
+            {
+                var result = MessageBox.Show(ex.Message + Environment.NewLine + "Are you sure ?", "Fatal error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+                if (result == DialogResult.Yes)
+                {
+                    //TODO: remove all savefiles
+                    Application.Exit();
+                }
+                notifyIcon1.BalloonTipText = "Savepath set to default";
+                notifyIcon1.ShowBalloonTip(150);
+                SaveManager.SetPathsToDefault();
             }
         }
 

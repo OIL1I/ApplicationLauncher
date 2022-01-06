@@ -53,6 +53,7 @@
     <Compile Include="Controls\LauncherItemFlowLayoutPanelEventArgs.cs" />
     <Compile Include="Data\LauncherData.cs" />
     <Compile Include="Data\SaveItem.cs" />
+    <Compile Include="Exceptions\ChangedSavePathException.cs" />
     <Compile Include="Exceptions\SavePathNotFoundException.cs" />
     <Compile Include="Exceptions\SavePathWasNotSetException.cs" />
     <Compile Include="Logic\SaveManager.cs" />
