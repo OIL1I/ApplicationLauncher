@@ -25,9 +25,10 @@ namespace ApplicationLauncher.Forms
 
             try
             {
-                SaveManager.SavePath = ConfigurationManager.AppSettings.Get("SavePath");
+                SaveManager.CurrentSavePath = ConfigurationManager.AppSettings.Get("CurrentSavePath");
+                SaveManager.PreviousSavePath = SaveManager.CurrentSavePath;
 
-                SaveItem[] items = SaveManager.LoadFromFiles(SaveManager.SavePath);
+                SaveItem[] items = SaveManager.LoadFromFiles(SaveManager.CurrentSavePath);
 
                 foreach (SaveItem saveItem in items)
                 {
@@ -111,7 +112,7 @@ namespace ApplicationLauncher.Forms
 
                 if (result == DialogResult.Yes)
                 {
-                    SaveManager.CreateDirectory(SaveManager.SavePath);
+                    SaveManager.CreateDirectory(SaveManager.CurrentSavePath);
                 }
                 return;
             }

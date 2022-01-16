@@ -22,7 +22,8 @@ namespace ApplicationLauncher.Forms
             }
 
             this.flpanel_items.SelectionChanged += ItemSelectionChanged;
-            this.txtbx_saveDirectory.Text = Logic.SaveManager.SavePath;
+            this.txtbx_saveDirectory.Text = Logic.SaveManager.CurrentSavePath;
+            this.flpanel_items.SelectionIndex = -1;
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -284,20 +285,10 @@ namespace ApplicationLauncher.Forms
             {
                 var currentPath = txtbx_saveDirectory.Text;
 
-                //var mbxResult = MessageBox.Show
-                //    ("Are you sure you want to change the savepath ?" + Environment.NewLine +
-                //    "This will delete all existing savefiles on closing application and is NOT redoable!",
-                //    "Changing savepath",
-                //    MessageBoxButtons.YesNo,
-                //    MessageBoxIcon.Question
-                //    );
+                Logic.SaveManager.PreviousSavePath = currentPath;
 
-                //if (mbxResult == DialogResult.Yes)
-                //{
-                Logic.SaveManager.SavePath = dlg.SelectedPath + "\\";
+                Logic.SaveManager.CurrentSavePath = dlg.SelectedPath + "\\";
                 txtbx_saveDirectory.Text = dlg.SelectedPath + "\\";
-                //TODO: save previous savepath
-                //}
             }
         }
 
@@ -308,6 +299,18 @@ namespace ApplicationLauncher.Forms
             var li = (flpanel_items.Controls[flpanel_items.SelectionIndex] as Controls.LauncherItem);
             li.SetSymbolToDefault();
             this.picbx_itemSymbol.Image = li.DefaultItemSymbol;
+        }
+
+        private void btn_restore_Click(object sender, EventArgs e)
+        {
+            Logic.SaveManager.CurrentSavePath = Logic.SaveManager.PreviousSavePath;
+            this.txtbx_saveDirectory.Text = Logic.SaveManager.PreviousSavePath;
+        }
+
+        private void btn_default_Click(object sender, EventArgs e)
+        {
+            Logic.SaveManager.SetPathsToDefault();
+            this.txtbx_saveDirectory.Text = Logic.SaveManager.CurrentSavePath;
         }
     }
 }
