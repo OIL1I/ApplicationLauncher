@@ -2,8 +2,10 @@
 using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
+using SaveHelper;
 using ApplicationLauncher.Data;
 using ApplicationLauncher.Logic;
+using SaveItem = SaveHelper.SaveItem;
 
 namespace ApplicationLauncher.Forms
 {
@@ -34,12 +36,15 @@ namespace ApplicationLauncher.Forms
             }
             catch (ArgumentNullException ex)
             {
-                //TODO: Rework Error Message Titles
                 MessageBox.Show(ex.Message, "Undefined Savepath!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exceptions.SavePathNotFoundException ex)
             {
                 MessageBox.Show(ex.Message, "Missing savepath directory!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             ReloadFavorites();
         }
@@ -84,7 +89,7 @@ namespace ApplicationLauncher.Forms
             {
                 for (int i = 0; i < LauncherData.GetItemCount; i++)
                 {
-                    SaveManager.SaveToFile(new SaveItem(LauncherData.GetItem(i)));
+                    SaveManager.SaveToFile(LauncherData.GetItem(i).GetSaveItem());
                 }
 
                 Application.Exit();
@@ -127,7 +132,7 @@ namespace ApplicationLauncher.Forms
 
         private void ShowSettingsWindow_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
+            this.Visible = false; 
             new Settings().ShowDialog();
             ReloadFavorites();
             this.Visible = true;

@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using SaveHelper;
 
 namespace ApplicationLauncher.Logic
 {
-    //TODO: Rework saving --> SaveManager.dll
     public static class SaveManager
     {
         private static string DefaultSavePath = Environment.CurrentDirectory + "\\Saves\\";
 
         public static string SavePath { get; set; }
 
-        public static void SaveToFile(Data.SaveItem item)
+        public static void SaveToFile(SaveItem item)
         {
             #region --- Exceptions ---
             if (string.IsNullOrEmpty(SavePath)) throw new Exceptions.SavePathWasNotSetException(); 
@@ -20,29 +20,18 @@ namespace ApplicationLauncher.Logic
             if (SavePath != DefaultSavePath) throw new Exceptions.ChangedSavePathException();
             #endregion
 
-            FileStream fileStream = new FileStream(SavePath + item.itemName + ".sav", FileMode.Create);
-
-            new BinaryFormatter().Serialize(fileStream, item);
-
-            fileStream.Close();
+            SaveHelper.SaveHelper.SaveToPath(SavePath, item);
         }
 
-        public static Data.SaveItem[] LoadFromFiles(string pSavePath)
+        public static SaveItem[] LoadFromFiles(string pSavePath)
         {
             #region --- Exceptions ---
             if (string.IsNullOrEmpty(pSavePath)) throw new ArgumentNullException("SavePath", "Given SavePath was null or empty");
             if (!Directory.Exists(pSavePath)) throw new Exceptions.SavePathNotFoundException(pSavePath);
             #endregion
+            List<SaveItem> result = new List<SaveItem>();
 
-            string[] filePaths = Directory.GetFiles(SavePath, "*.sav");
-            List<Data.SaveItem> result = new List<Data.SaveItem>();
-
-            foreach (string file in filePaths)
-            {
-                FileStream fileStream = new FileStream(file, FileMode.Open);
-                result.Add(new BinaryFormatter().Deserialize(fileStream) as Data.SaveItem);
-                fileStream.Close();
-            }
+            if (!LoadHelper.LoadFromPath(pSavePath, out result)) throw new Exception("Error loading from path: " + SavePath);
 
             return result.ToArray();
         }

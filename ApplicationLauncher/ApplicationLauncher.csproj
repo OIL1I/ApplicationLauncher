@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SaveHelper">
+      <HintPath>..\..\SaveHelper\SaveHelper\bin\Release\SaveHelper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -62,6 +65,7 @@
     <Compile Include="Forms\AllApps.Designer.cs">
       <DependentUpon>AllApps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\SaveManager - Kopieren.cs" />
     <Compile Include="Logic\SaveManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
