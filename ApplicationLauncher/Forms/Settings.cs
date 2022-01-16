@@ -120,6 +120,8 @@ namespace ApplicationLauncher.Forms
 
         private void btn_applyTxtbxContents_Click(object sender, EventArgs e)
         {
+            if (flpanel_items.SelectionIndex < 0) { this.cbx_launchArgs.Checked = false; return; }
+
             Controls.LauncherItem selectedLaunecherItem = flpanel_items.Controls[flpanel_items.SelectionIndex] as Controls.LauncherItem;
 
             if (selectedLaunecherItem == null) return;
@@ -205,6 +207,7 @@ namespace ApplicationLauncher.Forms
         private void btn_deleteItem_Click(object sender, EventArgs e)
         {
             //TODO: Remove SaveFile for deleted item
+            if (flpanel_items.SelectionIndex < 0) return;
             flpanel_items.Controls.RemoveAt(flpanel_items.SelectionIndex);
             if (flpanel_items.Controls.Count > 0)
             {
@@ -294,7 +297,7 @@ namespace ApplicationLauncher.Forms
 
         private void btn_resetSymbol_Click(object sender, EventArgs e)
         {
-            if (this.picbx_itemSymbol.Image == null) return;
+            if (this.picbx_itemSymbol.Image == null || flpanel_items.SelectionIndex < 0) return;
 
             var li = (flpanel_items.Controls[flpanel_items.SelectionIndex] as Controls.LauncherItem);
             li.SetSymbolToDefault();
