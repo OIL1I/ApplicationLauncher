@@ -11,6 +11,8 @@ namespace ApplicationLauncher.Forms
 {
     public partial class Favorites : Form
     {
+        Configuration config;
+
         public Favorites()
         {
             InitializeComponent();
@@ -25,8 +27,20 @@ namespace ApplicationLauncher.Forms
 
             try
             {
-                SaveManager.CurrentSavePath = ConfigurationManager.AppSettings.Get("CurrentSavePath");
-                SaveManager.PreviousSavePath = SaveManager.CurrentSavePath;
+                config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+                if (config.AppSettings.Settings["FirstLaunch"].Value == "true")
+                {
+                    config.AppSettings.Settings["FirstLaunch"].Value = "false";
+                    SaveManager.SetPathsToDefault();
+                    config.AppSettings.Settings["CurrentSavePath"].Value = SaveManager.CurrentSavePath;
+                    notifyIcon1.BalloonTipText = "First launch: .config setup complete";
+                    notifyIcon1.ShowBalloonTip(150);
+                }
+                else
+                {
+                    SaveManager.CurrentSavePath = config.AppSettings.Settings["CurrentSavePath"].Value;
+                    SaveManager.PreviousSavePath = SaveManager.CurrentSavePath;
+                }
 
                 SaveItem[] items = SaveManager.LoadFromFiles(SaveManager.CurrentSavePath);
 
@@ -85,7 +99,7 @@ namespace ApplicationLauncher.Forms
 
         private void QuitApplication_Click(object sender, EventArgs e)
         {
-            //TODO: Write SavePath to .config
+        save:
             try
             {
                 for (int i = 0; i < LauncherData.GetItemCount; i++)
@@ -93,6 +107,8 @@ namespace ApplicationLauncher.Forms
                     SaveManager.SaveToFile(LauncherData.GetItem(i).GetSaveItem());
                 }
 
+                config.AppSettings.Settings["CurrentSavePath"].Value =  SaveManager.CurrentSavePath;
+                config.Save(ConfigurationSaveMode.Modified);
                 Application.Exit();
             }
             catch (Exceptions.SavePathWasNotSetException ex)
@@ -101,6 +117,8 @@ namespace ApplicationLauncher.Forms
 
                 if (result == DialogResult.Yes)
                 {
+                    notifyIcon1.BalloonTipText = "Savepath set to default";
+                    notifyIcon1.ShowBalloonTip(150);
                     SaveManager.SetPathsToDefault();
                     (new Settings()).ShowDialog();
                 }
@@ -112,6 +130,8 @@ namespace ApplicationLauncher.Forms
 
                 if (result == DialogResult.Yes)
                 {
+                    notifyIcon1.BalloonTipText = "Created directory " + SaveManager.CurrentSavePath;
+                    notifyIcon1.ShowBalloonTip(150);
                     SaveManager.CreateDirectory(SaveManager.CurrentSavePath);
                 }
                 return;
@@ -122,8 +142,11 @@ namespace ApplicationLauncher.Forms
 
                 if (result == DialogResult.Yes)
                 {
-                    //TODO: remove all savefiles
-                    Application.Exit();
+                    SaveManager.RemoveCurrentSaveFiles();
+                    notifyIcon1.BalloonTipText = "Deleted all savefiles";
+                    notifyIcon1.ShowBalloonTip(150);
+                    SaveManager.PreviousSavePath = SaveManager.CurrentSavePath;
+                    goto save;
                 }
                 notifyIcon1.BalloonTipText = "Savepath set to default";
                 notifyIcon1.ShowBalloonTip(150);

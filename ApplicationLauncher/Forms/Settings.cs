@@ -7,6 +7,8 @@ namespace ApplicationLauncher.Forms
 {
     public partial class Settings : Form
     {
+        private string localPreviousSavePath;
+
         public Settings()
         {
             InitializeComponent();
@@ -23,6 +25,7 @@ namespace ApplicationLauncher.Forms
 
             this.flpanel_items.SelectionChanged += ItemSelectionChanged;
             this.txtbx_saveDirectory.Text = Logic.SaveManager.CurrentSavePath;
+            this.localPreviousSavePath = Logic.SaveManager.CurrentSavePath;
             this.flpanel_items.SelectionIndex = -1;
         }
 
@@ -206,9 +209,10 @@ namespace ApplicationLauncher.Forms
 
         private void btn_deleteItem_Click(object sender, EventArgs e)
         {
-            //TODO: Remove SaveFile for deleted item
             if (flpanel_items.SelectionIndex < 0) return;
-            flpanel_items.Controls.RemoveAt(flpanel_items.SelectionIndex);
+            var item = flpanel_items.Controls[flpanel_items.SelectionIndex];
+            Logic.SaveManager.RemoveSaveFile(((Controls.LauncherItem)item).ItemName);
+            flpanel_items.Controls.Remove(item);
             if (flpanel_items.Controls.Count > 0)
             {
                 UnselectAllItems();
@@ -286,9 +290,7 @@ namespace ApplicationLauncher.Forms
 
             if (result == DialogResult.OK)
             {
-                var currentPath = txtbx_saveDirectory.Text;
-
-                Logic.SaveManager.PreviousSavePath = currentPath;
+                localPreviousSavePath = txtbx_saveDirectory.Text;
 
                 Logic.SaveManager.CurrentSavePath = dlg.SelectedPath + "\\";
                 txtbx_saveDirectory.Text = dlg.SelectedPath + "\\";
@@ -306,8 +308,8 @@ namespace ApplicationLauncher.Forms
 
         private void btn_restore_Click(object sender, EventArgs e)
         {
-            Logic.SaveManager.CurrentSavePath = Logic.SaveManager.PreviousSavePath;
-            this.txtbx_saveDirectory.Text = Logic.SaveManager.PreviousSavePath;
+            Logic.SaveManager.CurrentSavePath = localPreviousSavePath;
+            this.txtbx_saveDirectory.Text = localPreviousSavePath; 
         }
 
         private void btn_default_Click(object sender, EventArgs e)

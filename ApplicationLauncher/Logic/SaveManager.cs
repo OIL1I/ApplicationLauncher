@@ -8,8 +8,6 @@ namespace ApplicationLauncher.Logic
 {
     public static class SaveManager
     {
-        //TODO: Set SavePath on first launch
-
         private static string DefaultSavePath = Environment.CurrentDirectory + "\\Saves\\";
 
         public static string CurrentSavePath { get; set; }
@@ -20,7 +18,7 @@ namespace ApplicationLauncher.Logic
             #region --- Exceptions ---
             if (string.IsNullOrEmpty(CurrentSavePath)) throw new Exceptions.SavePathWasNotSetException(); 
             if (!Directory.Exists(CurrentSavePath)) throw new Exceptions.SavePathNotFoundException(CurrentSavePath);
-            if (CurrentSavePath != DefaultSavePath) throw new Exceptions.ChangedSavePathException();
+            if (CurrentSavePath != PreviousSavePath) throw new Exceptions.ChangedSavePathException();
             #endregion
 
             SaveHelper.SaveHelper.SaveToPath(CurrentSavePath, item);
@@ -42,11 +40,25 @@ namespace ApplicationLauncher.Logic
         public static void SetPathsToDefault()
         {
             CurrentSavePath = DefaultSavePath;
+            PreviousSavePath = DefaultSavePath;
         }
 
         public static void CreateDirectory(string path)
         {
             Directory.CreateDirectory(path);
+        }
+
+        public static void RemoveSaveFile(string itemName)
+        {
+            File.Delete(PreviousSavePath + itemName + ".sav");
+        }
+
+        public static void RemoveCurrentSaveFiles()
+        {
+            foreach (string file in Directory.GetFiles(PreviousSavePath, "*.sav"))
+            {
+                File.Delete(file);
+            }
         }
     }
 }
