@@ -55,7 +55,6 @@
     </Compile>
     <Compile Include="Controls\LauncherItemFlowLayoutPanelEventArgs.cs" />
     <Compile Include="Data\LauncherData.cs" />
-    <Compile Include="Data\SaveItem.cs" />
     <Compile Include="Exceptions\ChangedSavePathException.cs" />
     <Compile Include="Exceptions\SavePathNotFoundException.cs" />
     <Compile Include="Exceptions\SavePathWasNotSetException.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="Forms\AllApps.Designer.cs">
       <DependentUpon>AllApps.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\SaveManager - Kopieren.cs" />
     <Compile Include="Logic\SaveManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
