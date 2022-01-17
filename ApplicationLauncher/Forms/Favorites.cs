@@ -13,6 +13,7 @@ namespace ApplicationLauncher.Forms
     {
         Configuration config;
         Rectangle screen;
+        bool shouldClose = false;
 
         public Favorites()
         {
@@ -226,8 +227,11 @@ namespace ApplicationLauncher.Forms
 
         private void Favorites_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Visible = false;
-            e.Cancel = true;
+            if (!shouldClose)
+            {
+                this.Visible = false;
+                e.Cancel = true;
+            }
         }
 
         private void Favorites_Resize(object sender, EventArgs e)
