@@ -12,6 +12,7 @@ namespace ApplicationLauncher.Forms
     public partial class Favorites : Form
     {
         Configuration config;
+        Rectangle screen;
 
         public Favorites()
         {
@@ -20,6 +21,9 @@ namespace ApplicationLauncher.Forms
 
         private void Favorites_Load(object sender, EventArgs e)
         {
+            screen = Screen.PrimaryScreen.WorkingArea;
+            this.Location = new Point(screen.Width - this.Width, screen.Height - this.Height);
+
             notifyIcon1.Icon = SystemIcons.Application;
 
             notifyIcon1.ContextMenuStrip = CreateContextMenuStrip();
@@ -107,7 +111,7 @@ namespace ApplicationLauncher.Forms
                     SaveManager.SaveToFile(LauncherData.GetItem(i).GetSaveItem());
                 }
 
-                config.AppSettings.Settings["CurrentSavePath"].Value =  SaveManager.CurrentSavePath;
+                config.AppSettings.Settings["CurrentSavePath"].Value = SaveManager.CurrentSavePath;
                 config.Save(ConfigurationSaveMode.Modified);
                 Application.Exit();
             }
@@ -156,7 +160,7 @@ namespace ApplicationLauncher.Forms
 
         private void ShowSettingsWindow_Click(object sender, EventArgs e)
         {
-            this.Visible = false; 
+            this.Visible = false;
             new Settings().ShowDialog();
             ReloadFavorites();
             this.Visible = true;
@@ -191,6 +195,20 @@ namespace ApplicationLauncher.Forms
                 }
 
             }
+        }
+
+        private void Favorites_Move(object sender, EventArgs e)
+        {
+            if (this.Location.X > screen.Width / 2)
+                this.Location = new Point(screen.Width - this.Width, this.Location.Y);
+            else
+                this.Location = new Point(0, this.Location.Y);
+        }
+
+        private void Favorites_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Visible = false;
+            e.Cancel = true;
         }
     }
 }
