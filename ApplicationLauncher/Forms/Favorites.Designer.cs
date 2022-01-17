@@ -62,6 +62,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Favorites_FormClosing);
             this.Load += new System.EventHandler(this.Favorites_Load);
             this.Move += new System.EventHandler(this.Favorites_Move);
+            this.Resize += new System.EventHandler(this.Favorites_Resize);
             this.ResumeLayout(false);
 
         }
