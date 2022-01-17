@@ -6,7 +6,7 @@ Everything you need can be found in your taskbar, just right-click the launcher'
 
 More information can be found [here](https://github.com/OIL1I/ApplicationLauncher/wiki).
 
-Contributing? More about that [here](https://github.com/OIL1I/ApplicationLauncher/blob/master/CONTRIBUTING.md)
+Contributing? More about that [here](https://github.com/OIL1I/ApplicationLauncher/blob/master/CONTRIBUTING.md).
 
 ***
 
