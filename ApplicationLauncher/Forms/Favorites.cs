@@ -13,6 +13,7 @@ namespace ApplicationLauncher.Forms
     {
         Configuration config;
         Rectangle screen;
+        bool shouldClose = false;
 
         public Favorites()
         {
@@ -22,7 +23,6 @@ namespace ApplicationLauncher.Forms
         private void Favorites_Load(object sender, EventArgs e)
         {
             screen = Screen.PrimaryScreen.WorkingArea;
-            this.Location = new Point(screen.Width - this.Width, screen.Height - this.Height);
 
             notifyIcon1.Icon = SystemIcons.Application;
 
@@ -39,10 +39,25 @@ namespace ApplicationLauncher.Forms
                     config.AppSettings.Settings["CurrentSavePath"].Value = SaveManager.CurrentSavePath;
                     notifyIcon1.BalloonTipText = "First launch: .config setup complete";
                     notifyIcon1.ShowBalloonTip(150);
+                    this.Location = new Point(screen.Width - this.Width, screen.Height - this.Height);
                 }
                 else
                 {
                     SaveManager.CurrentSavePath = config.AppSettings.Settings["CurrentSavePath"].Value;
+
+                    int width;
+                    int height;
+                    int posX;
+                    int posY;
+                    Int32.TryParse(config.AppSettings.Settings["Width"].Value, out width);
+                    Int32.TryParse(config.AppSettings.Settings["Height"].Value, out height);
+                    Int32.TryParse(config.AppSettings.Settings["PositionX"].Value, out posX);
+                    Int32.TryParse(config.AppSettings.Settings["PositionY"].Value, out posY);
+
+                    this.Location = new Point(posX, posY);
+                    this.Size = new Size(width, height);
+                    this.flpannel_items.Size = new Size(width - 41, height - 63);
+
                     SaveManager.PreviousSavePath = SaveManager.CurrentSavePath;
                 }
 
@@ -112,7 +127,12 @@ namespace ApplicationLauncher.Forms
                 }
 
                 config.AppSettings.Settings["CurrentSavePath"].Value = SaveManager.CurrentSavePath;
+                config.AppSettings.Settings["PositionX"].Value = this.Location.X.ToString();
+                config.AppSettings.Settings["PositionY"].Value = this.Location.Y.ToString();
+                config.AppSettings.Settings["Width"].Value = this.Size.Width.ToString();
+                config.AppSettings.Settings["Height"].Value = this.Size.Height.ToString();
                 config.Save(ConfigurationSaveMode.Modified);
+                shouldClose = true;
                 Application.Exit();
             }
             catch (Exceptions.SavePathWasNotSetException ex)
@@ -207,8 +227,19 @@ namespace ApplicationLauncher.Forms
 
         private void Favorites_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Visible = false;
-            e.Cancel = true;
+            if (!shouldClose)
+            {
+                this.Visible = false;
+                e.Cancel = true;
+            }
+        }
+
+        private void Favorites_Resize(object sender, EventArgs e)
+        {
+            this.flpannel_items.Size = new Size(this.Size.Width - 41, this.Size.Height - 63);
+
+            this.flpannel_items.Update();
+            this.Update();
         }
     }
 }
