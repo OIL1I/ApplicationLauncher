@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationLauncher", "ApplicationLauncher\ApplicationLauncher.csproj", "{62133BD0-1D02-4A95-92FF-EC2458930745}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Setup", "Setup\Setup.csproj", "{C04695A5-5D57-43EF-9A28-F9DB29B3AC6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortcutHelper", "..\ShortcutHelper\ShortcutHelper\ShortcutHelper.csproj", "{07DA2973-F524-4622-8616-E558F8CDB146}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{62133BD0-1D02-4A95-92FF-EC2458930745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62133BD0-1D02-4A95-92FF-EC2458930745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62133BD0-1D02-4A95-92FF-EC2458930745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C04695A5-5D57-43EF-9A28-F9DB29B3AC6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C04695A5-5D57-43EF-9A28-F9DB29B3AC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C04695A5-5D57-43EF-9A28-F9DB29B3AC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C04695A5-5D57-43EF-9A28-F9DB29B3AC6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07DA2973-F524-4622-8616-E558F8CDB146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07DA2973-F524-4622-8616-E558F8CDB146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07DA2973-F524-4622-8616-E558F8CDB146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07DA2973-F524-4622-8616-E558F8CDB146}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
