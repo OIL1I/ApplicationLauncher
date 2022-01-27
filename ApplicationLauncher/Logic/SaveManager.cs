@@ -8,8 +8,7 @@ namespace ApplicationLauncher.Logic
 {
     public static class SaveManager
     {
-        private static string DefaultSavePath = Environment.CurrentDirectory + "\\Saves\\";
-
+        public static string DefaultSavePath { get; set; }
         public static string CurrentSavePath { get; set; }
         public static string PreviousSavePath { get; set; }
 

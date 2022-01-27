@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ApplicationLauncher
+namespace Setup
 {
     internal static class Program
     {
@@ -9,20 +12,11 @@ namespace ApplicationLauncher
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static void Main()
         {
-            var arg = "";
-            if (args.Length == 0)
-            {
-                arg = "Start";
-            }
-            else
-            {
-                arg = args[0];
-            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.Favorites(arg));
+            Application.Run(new Setup());
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
-using SaveHelper;
 using ApplicationLauncher.Data;
 using ApplicationLauncher.Logic;
 using SaveItem = SaveHelper.SaveItem;
@@ -15,9 +14,16 @@ namespace ApplicationLauncher.Forms
         Rectangle screen;
         bool shouldClose = false;
 
-        public Favorites()
+        public Favorites(string arg)
         {
-            InitializeComponent();
+            config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+            if (arg == "Autostart" && config.AppSettings.Settings["Autostart"].Value == "true" || arg == "Start")
+                InitializeComponent();
+            else
+            {
+                shouldClose = true;
+                this.Close();
+            }
         }
 
         private void Favorites_Load(object sender, EventArgs e)
@@ -31,19 +37,27 @@ namespace ApplicationLauncher.Forms
 
             try
             {
-                config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
                 if (config.AppSettings.Settings["FirstLaunch"].Value == "true")
                 {
-                    config.AppSettings.Settings["FirstLaunch"].Value = "false";
-                    SaveManager.SetPathsToDefault();
-                    config.AppSettings.Settings["CurrentSavePath"].Value = SaveManager.CurrentSavePath;
-                    notifyIcon1.BalloonTipText = "First launch: .config setup complete";
-                    notifyIcon1.ShowBalloonTip(150);
-                    this.Location = new Point(screen.Width - this.Width, screen.Height - this.Height);
+                    using (System.Diagnostics.Process process = new System.Diagnostics.Process())
+                    {
+                        var processInfo = new System.Diagnostics.ProcessStartInfo(Environment.CurrentDirectory + "\\Binaries\\Setup.exe");
+                        process.StartInfo = processInfo;
+                        process.Start();
+                    }
+
+                    shouldClose = true;
+                    Application.Exit();
+                    //SaveManager.SetPathsToDefault();
+                    //config.AppSettings.Settings["CurrentSavePath"].Value = SaveManager.CurrentSavePath;
+                    //notifyIcon1.BalloonTipText = "First launch: .config setup complete";
+                    //notifyIcon1.ShowBalloonTip(150);
+                    //this.Location = new Point(screen.Width - this.Width, screen.Height - this.Height);
                 }
                 else
                 {
                     SaveManager.CurrentSavePath = config.AppSettings.Settings["CurrentSavePath"].Value;
+                    SaveManager.DefaultSavePath = config.AppSettings.Settings["DefaultSavePath"].Value;
 
                     int width;
                     int height;
