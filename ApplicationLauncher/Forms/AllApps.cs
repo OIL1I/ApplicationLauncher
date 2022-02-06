@@ -26,7 +26,7 @@ namespace ApplicationLauncher.Forms
         {
             OnResize();
 
-            for (int i = 0; i < Data.LauncherData.GetItemCount; i++)
+            for (int i = 0; i < Data.LauncherData.ItemCount; i++)
             {
                 var item = Data.LauncherData.GetItem(i);
 

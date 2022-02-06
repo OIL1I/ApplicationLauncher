@@ -14,6 +14,8 @@ namespace Setup
 {
     public partial class Setup : Form
     {
+        string setupPath;
+
         public Setup()
         {
             if (System.Diagnostics.Process.GetProcessesByName("ApplicationLauncher").Length > 0)
@@ -22,19 +24,21 @@ namespace Setup
                 Environment.Exit(575);
             }
 
+            setupPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath).Substring(0, System.IO.Path.GetDirectoryName(Application.ExecutablePath).Length - "Binaries".Length);
             InitializeComponent();
         }
 
         private void Setup_Load(object sender, EventArgs eventArgs)
         {
-            this.txtbx_path.Text = Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.Length - "Binaries".Length);
+            this.txtbx_path.Text = setupPath + "Saves\\";
         }
 
         private void btn_finish_Click(object sender, EventArgs e)
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.Length - "Binaries".Length) + "ApplicationLauncher.exe");
+            Configuration config = ConfigurationManager.OpenExeConfiguration(setupPath + "ApplicationLauncher.exe");
             config.AppSettings.Settings["Autostart"].Value = chckbx_autostart.Checked ? "true" : "false";
-            config.AppSettings.Settings["DefaultSavePath"].Value = String.IsNullOrEmpty(txtbx_path.Text) ? Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.Length - "Binaries".Length) + "Saves\\" : txtbx_path.Text;
+            config.AppSettings.Settings["DefaultSavePath"].Value = String.IsNullOrEmpty(txtbx_path.Text) ? setupPath + "Saves\\" : txtbx_path.Text;
+            config.AppSettings.Settings["CurrentSavePath"].Value = String.IsNullOrEmpty(txtbx_path.Text) ? setupPath + "Saves\\" : txtbx_path.Text;
             config.AppSettings.Settings["FirstLaunch"].Value = "false";
             config.AppSettings.Settings["Width"].Value = "466";
             config.AppSettings.Settings["Height"].Value = "189";
@@ -67,7 +71,7 @@ namespace Setup
             {
                 if (chckbx_shortcut.Checked)
                 {
-                    ShortcutCreater.TryCreateDesktopShortcut(Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.Length - "Binaries".Length) + "ApplicationLauncher.exe");
+                    ShortcutCreater.TryCreateDesktopShortcut(setupPath + "ApplicationLauncher.exe");
                 }
                 else
                 {
@@ -75,7 +79,7 @@ namespace Setup
                 }
                 if (chckbx_autostart.Checked)
                 {
-                    ShortcutCreater.TryCreateStartupShortcutWithArguments(Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.Length - "Binaries".Length) + "ApplicationLauncher.exe", "Autostart");
+                    ShortcutCreater.TryCreateStartupShortcutWithArguments(setupPath + "ApplicationLauncher.exe", "Autostart");
                 }else
                 {
                     ShortcutDeleter.TryDeleteStartupShortcut("ApplicationLauncher.exe");

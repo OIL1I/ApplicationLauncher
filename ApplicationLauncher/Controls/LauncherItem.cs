@@ -19,26 +19,15 @@ namespace ApplicationLauncher.Controls
         public LauncherItem()
         {
             InitializeComponent();
-
             this.picbx_symbol.Image = this.Symbol;
             this.picbx_symbol.Update();
-
             SetMouseEvents();
         }
 
         public LauncherItem(SaveHelper.SaveItem saveItem)
         {
             InitializeComponent();
-
-            //this.IsFavorite = saveItem.isFavorite;
-            //this.ItemName = saveItem.itemName;
-            //this.Args = saveItem.args;
-            //this.PathToExe = saveItem.itemPath;
-            //this.Symbol = saveItem.symbol;
-            //this.DefaultItemSymbol = saveItem.defaultSymbol;
-
             ConvertFromSaveItem(saveItem);
-
             this.picbx_symbol.Image = this.Symbol;
             this.picbx_symbol.Update();
             SetMouseEvents();
@@ -103,20 +92,12 @@ namespace ApplicationLauncher.Controls
 
         public void SetClickToLaunch()
         {
-            this.Click += OnLaunch_Click;
-            foreach (Control c in this.Controls)
-            {
-                c.Click += OnLaunch_Click;
-            }
+            SetClick(OnLaunch_Click);
         }
 
         public void RemoveClickToLaunch()
         {
-            this.Click -= OnLaunch_Click;
-            foreach (Control c in this.Controls)
-            {
-                c.Click -= OnLaunch_Click;
-            }
+            RemoveClick(OnLaunch_Click);
         }
 
         public void SetClick(EventHandler method)

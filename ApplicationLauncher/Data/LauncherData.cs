@@ -7,7 +7,7 @@ namespace ApplicationLauncher.Data
     {
         private static LauncherItem[] Items = new LauncherItem[0];
 
-        public static int GetItemCount { get => Items.Length; }
+        public static int ItemCount { get => Items.Length; }
 
         public static LauncherItem GetItem(int index)
         {
@@ -92,21 +92,14 @@ namespace ApplicationLauncher.Data
             {
                 LauncherItem[] t = new LauncherItem[Items.Length];
 
-                for (int i = 0; i < index; i++)
+                for (int i = 0; i < Items.Length; i++)
                 {
                     t[i] = Items[i];
                 }
 
                 Items = new LauncherItem[t.Length - 1];
 
-                var c = 0;
-
-                for (int i = 0; i < t.Length; i++)
-                {
-                    c++;
-                }
-
-                t[c] = null;
+                t[index] = null;
 
                 var j = 0;
 

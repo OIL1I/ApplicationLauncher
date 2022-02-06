@@ -15,7 +15,7 @@ namespace ApplicationLauncher.Forms
         }
         private void Settings_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < Data.LauncherData.GetItemCount; i++)
+            for (int i = 0; i < Data.LauncherData.ItemCount; i++)
             {
                 var item = Data.LauncherData.GetItem(i);
                 item.RemoveClickToLaunch();
@@ -31,7 +31,7 @@ namespace ApplicationLauncher.Forms
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i <= Data.LauncherData.GetItemCount; i++)
+            for (int i = 0; i <= Data.LauncherData.ItemCount; i++)
             {
                 Data.LauncherData.RemoveItemAt(i);
             }
@@ -134,13 +134,13 @@ namespace ApplicationLauncher.Forms
 
             if (newName != "")
             {
-                selectedLaunecherItem.Name = newName;
+                selectedLaunecherItem.ItemName = newName;
             }
 
             selectedLaunecherItem.Args = newArgs;
 
             txtbx_args.Text = selectedLaunecherItem.Args;
-            txtbx_itemName.Text = selectedLaunecherItem.Name;
+            txtbx_itemName.Text = selectedLaunecherItem.ItemName;
         }
 
         private void SelectItem(object sender, EventArgs e)

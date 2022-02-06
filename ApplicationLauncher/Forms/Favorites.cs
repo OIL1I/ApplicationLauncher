@@ -41,7 +41,7 @@ namespace ApplicationLauncher.Forms
                 {
                     using (System.Diagnostics.Process process = new System.Diagnostics.Process())
                     {
-                        var processInfo = new System.Diagnostics.ProcessStartInfo(Environment.CurrentDirectory + "\\Binaries\\Setup.exe");
+                        var processInfo = new System.Diagnostics.ProcessStartInfo(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Binaries\\Setup.exe");
                         process.StartInfo = processInfo;
                         process.Start();
                     }
@@ -116,7 +116,7 @@ namespace ApplicationLauncher.Forms
 
         private void ShowAllApllications_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < LauncherData.GetItemCount; i++)
+            for (int i = 0; i < LauncherData.ItemCount; i++)
             {
                 var item = LauncherData.GetItem(i);
 
@@ -135,7 +135,7 @@ namespace ApplicationLauncher.Forms
         save:
             try
             {
-                for (int i = 0; i < LauncherData.GetItemCount; i++)
+                for (int i = 0; i < LauncherData.ItemCount; i++)
                 {
                     SaveManager.SaveToFile(LauncherData.GetItem(i).GetSaveItem());
                 }
@@ -219,7 +219,7 @@ namespace ApplicationLauncher.Forms
 
             flpannel_items.Controls.Clear();
 
-            for (int i = 0; i < Data.LauncherData.GetItemCount; i++)
+            for (int i = 0; i < Data.LauncherData.ItemCount; i++)
             {
                 if ((Data.LauncherData.GetItem(i)).IsFavorite)
                 {
