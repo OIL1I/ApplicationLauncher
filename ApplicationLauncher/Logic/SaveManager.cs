@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using SaveHelper;
 
 namespace ApplicationLauncher.Logic
@@ -20,7 +19,9 @@ namespace ApplicationLauncher.Logic
             if (CurrentSavePath != PreviousSavePath) throw new Exceptions.ChangedSavePathException();
             #endregion
 
-            SaveHelper.SaveHelper.SaveToPath(CurrentSavePath, item);
+            object _appPath;
+            item.GetDictionary().TryGetValue("ItemPath", out _appPath);
+            SaveHelper.SaveHelper.SaveToPath(CurrentSavePath, item, Path.GetFileNameWithoutExtension(_appPath.ToString()));
         }
 
         public static SaveItem[] LoadFromFiles(string pSavePath)

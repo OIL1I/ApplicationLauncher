@@ -92,14 +92,21 @@ namespace ApplicationLauncher.Data
             {
                 LauncherItem[] t = new LauncherItem[Items.Length];
 
-                for (int i = 0; i < Items.Length; i++)
+                for (int i = 0; i < index; i++)
                 {
                     t[i] = Items[i];
                 }
 
                 Items = new LauncherItem[t.Length - 1];
 
-                t[index] = null;
+                var c = 0;
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    c++;
+                }
+
+                t[c] = null;
 
                 var j = 0;
 
