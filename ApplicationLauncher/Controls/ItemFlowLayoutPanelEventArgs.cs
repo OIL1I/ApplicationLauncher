@@ -2,11 +2,11 @@
 
 namespace ApplicationLauncher.Controls
 {
-    public class LauncherItemFlowLayoutPanelEventArgs : EventArgs
+    public class ItemFlowLayoutPanelEventArgs : EventArgs
     {
         public LauncherItem LauncherItem { get; set; }
 
-        public LauncherItemFlowLayoutPanelEventArgs(LauncherItem pLauncherItem)
+        public ItemFlowLayoutPanelEventArgs(LauncherItem pLauncherItem)
         {
             LauncherItem = pLauncherItem;
         }

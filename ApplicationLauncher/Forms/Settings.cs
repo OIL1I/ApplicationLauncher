@@ -92,7 +92,7 @@ namespace ApplicationLauncher.Forms
             var t = flpanel_items.Controls[0] as Controls.LauncherItem;
             flpanel_items.SelectionIndex = GetItemID(t);
             t.SelectItem();
-            flpanel_items.OnSelectionChanged(new Controls.LauncherItemFlowLayoutPanelEventArgs(t));
+            flpanel_items.OnSelectionChanged(new Controls.ItemFlowLayoutPanelEventArgs(t));
         }
 
         private void btn_help_Click(object sender, EventArgs e)
@@ -154,7 +154,7 @@ namespace ApplicationLauncher.Forms
 
             tLi.SelectItem();
             flpanel_items.SelectionIndex = GetItemID(tLi);
-            flpanel_items.OnSelectionChanged(new Controls.LauncherItemFlowLayoutPanelEventArgs(tLi));
+            flpanel_items.OnSelectionChanged(new Controls.ItemFlowLayoutPanelEventArgs(tLi));
         }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
@@ -166,7 +166,7 @@ namespace ApplicationLauncher.Forms
             }
         }
 
-        private void ItemSelectionChanged(object sender, Controls.LauncherItemFlowLayoutPanelEventArgs e)
+        private void ItemSelectionChanged(object sender, Controls.ItemFlowLayoutPanelEventArgs e)
         {
             if (e.LauncherItem == null) return;
 

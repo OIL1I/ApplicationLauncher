@@ -50,10 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\LauncherItemFlowLayoutPanel.cs">
+    <Compile Include="Controls\FolderItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FolderItem.Designer.cs">
+      <DependentUpon>FolderItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FolderItemDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FolderItemDialog.Designer.cs">
+      <DependentUpon>FolderItemDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ItemFlowLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\LauncherItemFlowLayoutPanelEventArgs.cs" />
+    <Compile Include="Controls\ItemFlowLayoutPanelEventArgs.cs" />
     <Compile Include="Data\LauncherData.cs" />
     <Compile Include="Exceptions\ChangedSavePathException.cs" />
     <Compile Include="Exceptions\SavePathNotFoundException.cs" />
@@ -64,6 +76,13 @@
     <Compile Include="Forms\AllApps.Designer.cs">
       <DependentUpon>AllApps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\IItem.cs" />
     <Compile Include="Logic\SaveManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,8 +104,17 @@
     <Compile Include="Controls\LauncherItem.Designer.cs">
       <DependentUpon>LauncherItem.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\FolderItem.resx">
+      <DependentUpon>FolderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FolderItemDialog.resx">
+      <DependentUpon>FolderItemDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AllApps.resx">
       <DependentUpon>AllApps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,6 +124,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Forms\Favorites.resx">
       <DependentUpon>Favorites.cs</DependentUpon>
@@ -118,6 +147,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DefaultFolderClosed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DefaultFolderOpen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

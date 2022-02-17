@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.flp_items = new ApplicationLauncher.Controls.LauncherItemFlowLayoutPanel();
+            this.flp_items = new ApplicationLauncher.Controls.ItemFlowLayoutPanel();
             this.SuspendLayout();
             // 
             // flp_items
@@ -61,6 +61,6 @@
 
         #endregion
 
-        private Controls.LauncherItemFlowLayoutPanel flp_items;
+        private Controls.ItemFlowLayoutPanel flp_items;
     }
 }
