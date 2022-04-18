@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationLauncher.Properties;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -23,10 +24,20 @@ namespace ApplicationLauncher.Forms
                 flpanel_items.Controls.Add(item);
             }
 
+            for (int i = 0; i < Data.LauncherData.FolderCount; i++)
+            {
+                var item = Data.LauncherData.GetFolder(i);
+                item.SetClick(SelectFolder);
+                item.RemoveClickToOpen();
+                flpanel_folders.Controls.Add(item);
+            }
+
             this.flpanel_items.SelectionChanged += ItemSelectionChanged;
+            this.flpanel_folders.SelectionChanged += FolderSelectionChanged;
             this.txtbx_saveDirectory.Text = Logic.SaveManager.CurrentSavePath;
             this.localPreviousSavePath = Logic.SaveManager.CurrentSavePath;
             this.flpanel_items.SelectionIndex = -1;
+            this.flpanel_folders.SelectionIndex = -1;
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -35,12 +46,23 @@ namespace ApplicationLauncher.Forms
             {
                 Data.LauncherData.RemoveItemAt(i);
             }
+            for (int i = 0; i <= Data.LauncherData.FolderCount; i++)
+            {
+                Data.LauncherData.RemoveFolderAt(i);
+            }
 
             foreach (Controls.LauncherItem item in flpanel_items.Controls)
             {
                 item.UnselectItem();
                 item.RemoveClick(SelectItem);
                 Data.LauncherData.AddItem(item);
+            }
+            foreach (Controls.FolderItem item in flpanel_folders.Controls)
+            {
+                item.UnselectItem();
+                item.RemoveClick(SelectFolder);
+                item.SetClickToOpen();
+                Data.LauncherData.AddFolder(item);
             }
 
             this.Close();
@@ -92,7 +114,16 @@ namespace ApplicationLauncher.Forms
             var t = flpanel_items.Controls[0] as Controls.LauncherItem;
             flpanel_items.SelectionIndex = GetItemID(t);
             t.SelectItem();
-            flpanel_items.OnSelectionChanged(new Controls.LauncherItemFlowLayoutPanelEventArgs(t));
+            flpanel_items.OnSelectionChanged(new Controls.ItemFlowLayoutPanelEventArgs(t));
+        }
+
+        private void SelectFirstFolder()
+        {
+            if (flpanel_folders.SelectionIndex == -1) return;
+            var t = flpanel_folders.Controls[0] as Controls.FolderItem;
+            flpanel_folders.SelectionIndex = GetFolderID(t);
+            t.SelectItem();
+            flpanel_folders.OnSelectionChanged(new Controls.ItemFlowLayoutPanelEventArgs(t));
         }
 
         private void btn_help_Click(object sender, EventArgs e)
@@ -148,13 +179,26 @@ namespace ApplicationLauncher.Forms
             Controls.LauncherItem tLi = null;
 
             UnselectAllItems();
-            tLi = GetLauncherItemEventSender(sender);
+            tLi = GetItemFromSender(sender) as Controls.LauncherItem;
 
             if (tLi == null) return;
 
             tLi.SelectItem();
             flpanel_items.SelectionIndex = GetItemID(tLi);
-            flpanel_items.OnSelectionChanged(new Controls.LauncherItemFlowLayoutPanelEventArgs(tLi));
+            flpanel_items.OnSelectionChanged(new Controls.ItemFlowLayoutPanelEventArgs(tLi));
+        }
+
+        private void SelectFolder(object sender, EventArgs e)
+        {
+            Controls.FolderItem tFi = null;
+            UnselectAllFolder();
+            tFi = GetItemFromSender(sender) as Controls.FolderItem;
+
+            if (tFi == null) return;
+
+            tFi.SelectItem();
+            flpanel_folders.SelectionIndex = GetFolderID(tFi);
+            flpanel_folders.OnSelectionChanged(new Controls.ItemFlowLayoutPanelEventArgs(tFi));
         }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
@@ -166,15 +210,29 @@ namespace ApplicationLauncher.Forms
             }
         }
 
-        private void ItemSelectionChanged(object sender, Controls.LauncherItemFlowLayoutPanelEventArgs e)
+        private void ItemSelectionChanged(object sender, Controls.ItemFlowLayoutPanelEventArgs e)
         {
-            if (e.LauncherItem == null) return;
-
-            this.picbx_itemSymbol.Image = e.LauncherItem.Symbol;
-            this.txtbx_itemName.Text = e.LauncherItem.ItemName;
-            this.txtbx_args.Text = e.LauncherItem.Args;
+            if (e.Item == null) return;
+            var item = e.Item as Controls.LauncherItem;
+            this.picbx_itemSymbol.Image = item.Symbol;
+            this.txtbx_itemName.Text = item.ItemName;
+            this.txtbx_args.Text = item.Args;
             this.cbx_launchArgs.Checked = false;
-            this.cbx_favorite.Checked = e.LauncherItem.IsFavorite;
+            this.cbx_favorite.Checked = item.IsFavorite;
+        }
+
+        private void FolderSelectionChanged(object sender, Controls.ItemFlowLayoutPanelEventArgs e)
+        {
+            if (e.Item == null) return;
+            var item = e.Item as Controls.FolderItem;
+            this.picbx_closedFolder.Image = item.ClosedFolderSymbol;
+            this.picbx_openFolder.Image = item.OpenFolderSymbol;
+            this.txtbx_folderName.Text = item.FolderName;
+            this.lstbx_folderContents.Items.Clear();
+            foreach (Controls.LauncherItem li in item.FolderItemDialog.Items)
+            {
+                this.lstbx_folderContents.Items.Add(li.ItemName);
+            }
         }
 
         private void UnselectAllItems()
@@ -185,22 +243,40 @@ namespace ApplicationLauncher.Forms
             }
         }
 
-        private Controls.LauncherItem GetLauncherItemEventSender(object sender)
+        private void UnselectAllFolder()
+        {
+            foreach (Controls.FolderItem fi in flpanel_folders.Controls)
+            {
+                fi.UnselectItem();
+            }
+        }
+
+        private Logic.IItem GetItemFromSender(object sender)
         {
             Control c = null;
-            Controls.LauncherItem result = null;
+            Logic.IItem result = null;
 
             foreach (Controls.LauncherItem li in flpanel_items.Controls)
             {
                 if (li.Equals(sender))
                 {
-                    result = li;
-                    break;
+                    return result = li;
                 }
                 else if (li.Contains(c = sender as Control))
                 {
-                    result = c.Parent as Controls.LauncherItem;
-                    break;
+                    return result = c.Parent as Logic.IItem;
+                }
+            }
+
+            foreach (Controls.FolderItem fi in flpanel_folders.Controls)
+            {
+                if (fi.Equals(sender))
+                {
+                    return result = fi;
+                }
+                else if (fi.Contains(c = sender as Control))
+                {
+                    return result = c.Parent as Logic.IItem;
                 }
             }
 
@@ -211,6 +287,7 @@ namespace ApplicationLauncher.Forms
         {
             if (flpanel_items.SelectionIndex < 0) return;
             var item = flpanel_items.Controls[flpanel_items.SelectionIndex];
+            //TODO: Change deleting to remove all files and save in new ones for each existing item
             Logic.SaveManager.RemoveSaveFile(((Controls.LauncherItem)item).ItemName);
             flpanel_items.Controls.Remove(item);
             if (flpanel_items.Controls.Count > 0)
@@ -259,6 +336,22 @@ namespace ApplicationLauncher.Forms
             {
                 result++;
                 if (li.Equals(pLauncherItem))
+                {
+                    break;
+                }
+            }
+
+            return result;
+        }
+        
+        private int GetFolderID(Controls.FolderItem pFolderItem)
+        {
+            int result = -1;
+
+            foreach (Controls.FolderItem li in flpanel_folders.Controls)
+            {
+                result++;
+                if (li.Equals(pFolderItem))
                 {
                     break;
                 }
@@ -316,6 +409,41 @@ namespace ApplicationLauncher.Forms
         {
             Logic.SaveManager.SetPathsToDefault();
             this.txtbx_saveDirectory.Text = Logic.SaveManager.CurrentSavePath;
+        }
+
+        private void btn_addFolder_Click(object sender, EventArgs e)
+        {
+            Controls.FolderItem folderItem = new Controls.FolderItem();
+            folderItem.FolderName = "Folder" + (flpanel_folders.Controls.Count + 1);
+            folderItem.FolderItemDialog = new Forms.FolderItemDialog(folderItem);
+            folderItem.OpenFolderSymbol = Resources.DefaultFolderOpen;
+            folderItem.ClosedFolderSymbol = Resources.DefaultFolderClosed;
+            folderItem.CloseFolder();
+            folderItem.SetClick(SelectFolder);
+
+            this.flpanel_folders.Controls.Add(folderItem);
+            this.flpanel_folders.Update();
+
+            UnselectAllFolder();
+            SelectFirstFolder();
+        }
+
+        private void btn_removeFolder_Click(object sender, EventArgs e)
+        {
+            if (flpanel_folders.SelectionIndex == -1) return;
+
+            UnselectAllFolder();
+            flpanel_folders.Controls.RemoveAt(flpanel_folders.SelectionIndex);
+
+            SelectFirstFolder();
+        }
+
+        private void btn_manageFolderContents_Click(object sender, EventArgs e)
+        {
+            if (flpanel_folders.SelectionIndex == -1) return;
+            new ManageFolder((flpanel_folders.Controls[flpanel_folders.SelectionIndex] as Controls.FolderItem).FolderItemDialog).ShowDialog();
+            UnselectAllFolder();
+            SelectFirstFolder();
         }
     }
 }

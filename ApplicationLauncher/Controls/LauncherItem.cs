@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ApplicationLauncher.Controls
 {
-    public partial class LauncherItem : UserControl, ISaveable
+    public partial class LauncherItem : UserControl, ISaveable, Logic.IItem
     {
         public bool IsFavorite { get; set; }
         public string PathToExe { get; set; }
@@ -162,23 +162,17 @@ namespace ApplicationLauncher.Controls
         public void ConvertFromSaveItem(SaveItem item)
         {
             Dictionary<string, object> dic = item.GetDictionary();
-            object _isFav;
-            if (!dic.TryGetValue("IsFavorite", out _isFav)) throw new Exception("Error converting to LauncherItem: IsFavorite!");
+            if (!dic.TryGetValue("IsFavorite", out object _isFav)) throw new Exception("Error converting to LauncherItem: IsFavorite!");
             this.IsFavorite = (bool)_isFav;
-            object _name;
-            if (!dic.TryGetValue("Name", out _name)) throw new Exception("Error converting to LauncherItem: Name!");
+            if (!dic.TryGetValue("Name", out object _name)) throw new Exception("Error converting to LauncherItem: Name!");
             this.ItemName = _name.ToString();
-            object _itemPath;
-            if (!dic.TryGetValue("ItemPath", out _itemPath)) throw new Exception("Error converting to LauncherItem: ItemPath!");
+            if (!dic.TryGetValue("ItemPath", out object _itemPath)) throw new Exception("Error converting to LauncherItem: ItemPath!");
             this.PathToExe = _itemPath.ToString();
-            object _args;
-            if (!dic.TryGetValue("Args", out _args)) throw new Exception("Error converting to LauncherItem: Args!");
+            if (!dic.TryGetValue("Args", out object _args)) throw new Exception("Error converting to LauncherItem: Args!");
             this.Args = _args.ToString();
-            object _symbol;
-            if (!dic.TryGetValue("Symbol", out _symbol)) throw new Exception("Error converting to LauncherItem: Symbol!");
+            if (!dic.TryGetValue("Symbol", out object _symbol)) throw new Exception("Error converting to LauncherItem: Symbol!");
             this.Symbol = (Image)_symbol;
-            object _defaultSymbol;
-            if (!dic.TryGetValue("DefaultSymbol", out _defaultSymbol)) throw new Exception("Error converting to LauncherItem: DefaultSymbol!");
+            if (!dic.TryGetValue("DefaultSymbol", out object _defaultSymbol)) throw new Exception("Error converting to LauncherItem: DefaultSymbol!");
             this.DefaultItemSymbol = (Image)_defaultSymbol;
         }
     }
