@@ -216,6 +216,10 @@ namespace ApplicationLauncher.Forms
             {
                 item.RemoveClickToLaunch();
             }
+            foreach (Controls.FolderItem item in flpannel_items.Controls)
+            {
+                item.RemoveClickToOpen();
+            }
 
             flpannel_items.Controls.Clear();
 
@@ -223,11 +227,17 @@ namespace ApplicationLauncher.Forms
             {
                 if ((Data.LauncherData.GetItem(i)).IsFavorite)
                 {
-                    Controls.LauncherItem t = Data.LauncherData.GetItem(i);
-                    flpannel_items.Controls.Add(t);
-                    t.SetClickToLaunch();
+                    Controls.LauncherItem tI = Data.LauncherData.GetItem(i);
+                    flpannel_items.Controls.Add(tI);
+                    tI.SetClickToLaunch();
                 }
 
+            }
+            for (int i = 0; i < Data.LauncherData.FolderCount; i++)
+            {
+                var tF = Data.LauncherData.GetFolder(i);
+                flpannel_items.Controls.Add(tF);
+                tF.SetClickToOpen();
             }
         }
 

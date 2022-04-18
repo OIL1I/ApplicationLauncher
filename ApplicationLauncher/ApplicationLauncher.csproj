@@ -56,12 +56,6 @@
     <Compile Include="Controls\FolderItem.Designer.cs">
       <DependentUpon>FolderItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FolderItemDialog.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\FolderItemDialog.Designer.cs">
-      <DependentUpon>FolderItemDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ItemFlowLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -76,11 +70,17 @@
     <Compile Include="Forms\AllApps.Designer.cs">
       <DependentUpon>AllApps.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\FolderItemDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\FolderItemDialog.Designer.cs">
+      <DependentUpon>FolderItemDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManageFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageFolder.Designer.cs">
+      <DependentUpon>ManageFolder.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\IItem.cs" />
     <Compile Include="Logic\SaveManager.cs" />
@@ -107,14 +107,14 @@
     <EmbeddedResource Include="Controls\FolderItem.resx">
       <DependentUpon>FolderItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FolderItemDialog.resx">
-      <DependentUpon>FolderItemDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AllApps.resx">
       <DependentUpon>AllApps.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FolderItemDialog.resx">
+      <DependentUpon>FolderItemDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageFolder.resx">
+      <DependentUpon>ManageFolder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

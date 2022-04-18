@@ -44,7 +44,24 @@
             this.btn_resetSymbol = new System.Windows.Forms.Button();
             this.btn_chooseSymbol = new System.Windows.Forms.Button();
             this.picbx_itemSymbol = new System.Windows.Forms.PictureBox();
+            this.flpanel_items = new ApplicationLauncher.Controls.ItemFlowLayoutPanel();
             this.tabpage_folder = new System.Windows.Forms.TabPage();
+            this.gbx_folderAttributes = new System.Windows.Forms.GroupBox();
+            this.btn_changeClosedFolderIcon = new System.Windows.Forms.Button();
+            this.btn_changeOpenFolderIcon = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.picbx_closedFolder = new System.Windows.Forms.PictureBox();
+            this.picbx_openFolder = new System.Windows.Forms.PictureBox();
+            this.txtbx_folderName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.gbx_folderContents = new System.Windows.Forms.GroupBox();
+            this.lstbx_folderContents = new System.Windows.Forms.ListBox();
+            this.btn_manageFolderContents = new System.Windows.Forms.Button();
+            this.btn_removeFolder = new System.Windows.Forms.Button();
+            this.btn_addFolder = new System.Windows.Forms.Button();
+            this.flpanel_folders = new ApplicationLauncher.Controls.ItemFlowLayoutPanel();
             this.tabpage_launcher = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_default = new System.Windows.Forms.Button();
@@ -52,34 +69,17 @@
             this.btn_chooseSaveDirectory = new System.Windows.Forms.Button();
             this.txtbx_saveDirectory = new System.Windows.Forms.TextBox();
             this.btn_save = new System.Windows.Forms.Button();
-            this.btn_addFolder = new System.Windows.Forms.Button();
-            this.btn_removeFolder = new System.Windows.Forms.Button();
-            this.btn_manageFolderContents = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtbx_folderName = new System.Windows.Forms.TextBox();
-            this.lstbx_folderContents = new System.Windows.Forms.ListBox();
-            this.gbx_folderContents = new System.Windows.Forms.GroupBox();
-            this.gbx_folderAttributes = new System.Windows.Forms.GroupBox();
-            this.picbx_openFolder = new System.Windows.Forms.PictureBox();
-            this.picbx_closedFolder = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btn_changeOpenFolderIcon = new System.Windows.Forms.Button();
-            this.btn_changeClosedFolderIcon = new System.Windows.Forms.Button();
-            this.flpanel_items = new ApplicationLauncher.Controls.ItemFlowLayoutPanel();
-            this.flp_folders = new ApplicationLauncher.Controls.ItemFlowLayoutPanel();
             this.tabctrl_settings.SuspendLayout();
             this.tabpage_items.SuspendLayout();
             this.gbx_launchSettings.SuspendLayout();
             this.gbx_symbol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picbx_itemSymbol)).BeginInit();
             this.tabpage_folder.SuspendLayout();
-            this.tabpage_launcher.SuspendLayout();
-            this.gbx_folderContents.SuspendLayout();
             this.gbx_folderAttributes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picbx_openFolder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbx_closedFolder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picbx_openFolder)).BeginInit();
+            this.gbx_folderContents.SuspendLayout();
+            this.tabpage_launcher.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabctrl_settings
@@ -253,13 +253,20 @@
             this.picbx_itemSymbol.TabIndex = 4;
             this.picbx_itemSymbol.TabStop = false;
             // 
+            // flpanel_items
+            // 
+            this.flpanel_items.Location = new System.Drawing.Point(6, 6);
+            this.flpanel_items.Name = "flpanel_items";
+            this.flpanel_items.Size = new System.Drawing.Size(379, 213);
+            this.flpanel_items.TabIndex = 15;
+            // 
             // tabpage_folder
             // 
             this.tabpage_folder.Controls.Add(this.gbx_folderAttributes);
             this.tabpage_folder.Controls.Add(this.gbx_folderContents);
             this.tabpage_folder.Controls.Add(this.btn_removeFolder);
             this.tabpage_folder.Controls.Add(this.btn_addFolder);
-            this.tabpage_folder.Controls.Add(this.flp_folders);
+            this.tabpage_folder.Controls.Add(this.flpanel_folders);
             this.tabpage_folder.Location = new System.Drawing.Point(4, 22);
             this.tabpage_folder.Name = "tabpage_folder";
             this.tabpage_folder.Padding = new System.Windows.Forms.Padding(3);
@@ -267,6 +274,157 @@
             this.tabpage_folder.TabIndex = 1;
             this.tabpage_folder.Text = "Folder";
             this.tabpage_folder.UseVisualStyleBackColor = true;
+            // 
+            // gbx_folderAttributes
+            // 
+            this.gbx_folderAttributes.Controls.Add(this.btn_changeClosedFolderIcon);
+            this.gbx_folderAttributes.Controls.Add(this.btn_changeOpenFolderIcon);
+            this.gbx_folderAttributes.Controls.Add(this.label6);
+            this.gbx_folderAttributes.Controls.Add(this.label5);
+            this.gbx_folderAttributes.Controls.Add(this.label4);
+            this.gbx_folderAttributes.Controls.Add(this.picbx_closedFolder);
+            this.gbx_folderAttributes.Controls.Add(this.picbx_openFolder);
+            this.gbx_folderAttributes.Controls.Add(this.txtbx_folderName);
+            this.gbx_folderAttributes.Controls.Add(this.label3);
+            this.gbx_folderAttributes.Location = new System.Drawing.Point(10, 248);
+            this.gbx_folderAttributes.Name = "gbx_folderAttributes";
+            this.gbx_folderAttributes.Size = new System.Drawing.Size(228, 168);
+            this.gbx_folderAttributes.TabIndex = 8;
+            this.gbx_folderAttributes.TabStop = false;
+            this.gbx_folderAttributes.Text = "Folder";
+            // 
+            // btn_changeClosedFolderIcon
+            // 
+            this.btn_changeClosedFolderIcon.Location = new System.Drawing.Point(152, 115);
+            this.btn_changeClosedFolderIcon.Name = "btn_changeClosedFolderIcon";
+            this.btn_changeClosedFolderIcon.Size = new System.Drawing.Size(27, 23);
+            this.btn_changeClosedFolderIcon.TabIndex = 12;
+            this.btn_changeClosedFolderIcon.Text = "...";
+            this.btn_changeClosedFolderIcon.UseVisualStyleBackColor = true;
+            // 
+            // btn_changeOpenFolderIcon
+            // 
+            this.btn_changeOpenFolderIcon.Location = new System.Drawing.Point(62, 115);
+            this.btn_changeOpenFolderIcon.Name = "btn_changeOpenFolderIcon";
+            this.btn_changeOpenFolderIcon.Size = new System.Drawing.Size(27, 23);
+            this.btn_changeOpenFolderIcon.TabIndex = 11;
+            this.btn_changeOpenFolderIcon.Text = "...";
+            this.btn_changeOpenFolderIcon.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(96, 144);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(39, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Closed";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 145);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(33, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Open";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 69);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Folder Icons";
+            // 
+            // picbx_closedFolder
+            // 
+            this.picbx_closedFolder.Location = new System.Drawing.Point(96, 88);
+            this.picbx_closedFolder.Name = "picbx_closedFolder";
+            this.picbx_closedFolder.Size = new System.Drawing.Size(50, 50);
+            this.picbx_closedFolder.TabIndex = 7;
+            this.picbx_closedFolder.TabStop = false;
+            // 
+            // picbx_openFolder
+            // 
+            this.picbx_openFolder.Location = new System.Drawing.Point(6, 88);
+            this.picbx_openFolder.Name = "picbx_openFolder";
+            this.picbx_openFolder.Size = new System.Drawing.Size(50, 50);
+            this.picbx_openFolder.TabIndex = 6;
+            this.picbx_openFolder.TabStop = false;
+            // 
+            // txtbx_folderName
+            // 
+            this.txtbx_folderName.Location = new System.Drawing.Point(6, 37);
+            this.txtbx_folderName.Name = "txtbx_folderName";
+            this.txtbx_folderName.Size = new System.Drawing.Size(216, 20);
+            this.txtbx_folderName.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Name";
+            // 
+            // gbx_folderContents
+            // 
+            this.gbx_folderContents.Controls.Add(this.lstbx_folderContents);
+            this.gbx_folderContents.Controls.Add(this.btn_manageFolderContents);
+            this.gbx_folderContents.Location = new System.Drawing.Point(337, 218);
+            this.gbx_folderContents.Name = "gbx_folderContents";
+            this.gbx_folderContents.Size = new System.Drawing.Size(200, 219);
+            this.gbx_folderContents.TabIndex = 7;
+            this.gbx_folderContents.TabStop = false;
+            this.gbx_folderContents.Text = "Folder Contents";
+            // 
+            // lstbx_folderContents
+            // 
+            this.lstbx_folderContents.FormattingEnabled = true;
+            this.lstbx_folderContents.Location = new System.Drawing.Point(6, 19);
+            this.lstbx_folderContents.Name = "lstbx_folderContents";
+            this.lstbx_folderContents.Size = new System.Drawing.Size(188, 160);
+            this.lstbx_folderContents.TabIndex = 6;
+            // 
+            // btn_manageFolderContents
+            // 
+            this.btn_manageFolderContents.Location = new System.Drawing.Point(6, 190);
+            this.btn_manageFolderContents.Name = "btn_manageFolderContents";
+            this.btn_manageFolderContents.Size = new System.Drawing.Size(130, 23);
+            this.btn_manageFolderContents.TabIndex = 3;
+            this.btn_manageFolderContents.Text = "Manage Folder contents";
+            this.btn_manageFolderContents.UseVisualStyleBackColor = true;
+            this.btn_manageFolderContents.Click += new System.EventHandler(this.btn_manageFolderContents_Click);
+            // 
+            // btn_removeFolder
+            // 
+            this.btn_removeFolder.Location = new System.Drawing.Point(92, 217);
+            this.btn_removeFolder.Name = "btn_removeFolder";
+            this.btn_removeFolder.Size = new System.Drawing.Size(92, 23);
+            this.btn_removeFolder.TabIndex = 2;
+            this.btn_removeFolder.Text = "Remove Folder";
+            this.btn_removeFolder.UseVisualStyleBackColor = true;
+            this.btn_removeFolder.Click += new System.EventHandler(this.btn_removeFolder_Click);
+            // 
+            // btn_addFolder
+            // 
+            this.btn_addFolder.Location = new System.Drawing.Point(10, 218);
+            this.btn_addFolder.Name = "btn_addFolder";
+            this.btn_addFolder.Size = new System.Drawing.Size(75, 23);
+            this.btn_addFolder.TabIndex = 1;
+            this.btn_addFolder.Text = "Add Folder";
+            this.btn_addFolder.UseVisualStyleBackColor = true;
+            this.btn_addFolder.Click += new System.EventHandler(this.btn_addFolder_Click);
+            // 
+            // flpanel_folders
+            // 
+            this.flpanel_folders.Location = new System.Drawing.Point(10, 7);
+            this.flpanel_folders.Name = "flpanel_folders";
+            this.flpanel_folders.Size = new System.Drawing.Size(527, 204);
+            this.flpanel_folders.TabIndex = 0;
             // 
             // tabpage_launcher
             // 
@@ -341,161 +499,6 @@
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
-            // btn_addFolder
-            // 
-            this.btn_addFolder.Location = new System.Drawing.Point(10, 218);
-            this.btn_addFolder.Name = "btn_addFolder";
-            this.btn_addFolder.Size = new System.Drawing.Size(75, 23);
-            this.btn_addFolder.TabIndex = 1;
-            this.btn_addFolder.Text = "Add Folder";
-            this.btn_addFolder.UseVisualStyleBackColor = true;
-            // 
-            // btn_removeFolder
-            // 
-            this.btn_removeFolder.Location = new System.Drawing.Point(92, 217);
-            this.btn_removeFolder.Name = "btn_removeFolder";
-            this.btn_removeFolder.Size = new System.Drawing.Size(92, 23);
-            this.btn_removeFolder.TabIndex = 2;
-            this.btn_removeFolder.Text = "Remove Folder";
-            this.btn_removeFolder.UseVisualStyleBackColor = true;
-            // 
-            // btn_manageFolderContents
-            // 
-            this.btn_manageFolderContents.Location = new System.Drawing.Point(6, 190);
-            this.btn_manageFolderContents.Name = "btn_manageFolderContents";
-            this.btn_manageFolderContents.Size = new System.Drawing.Size(130, 23);
-            this.btn_manageFolderContents.TabIndex = 3;
-            this.btn_manageFolderContents.Text = "Manage Folder contents";
-            this.btn_manageFolderContents.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Name";
-            // 
-            // txtbx_folderName
-            // 
-            this.txtbx_folderName.Location = new System.Drawing.Point(6, 37);
-            this.txtbx_folderName.Name = "txtbx_folderName";
-            this.txtbx_folderName.Size = new System.Drawing.Size(216, 20);
-            this.txtbx_folderName.TabIndex = 5;
-            // 
-            // lstbx_folderContents
-            // 
-            this.lstbx_folderContents.FormattingEnabled = true;
-            this.lstbx_folderContents.Location = new System.Drawing.Point(6, 19);
-            this.lstbx_folderContents.Name = "lstbx_folderContents";
-            this.lstbx_folderContents.Size = new System.Drawing.Size(188, 160);
-            this.lstbx_folderContents.TabIndex = 6;
-            // 
-            // gbx_folderContents
-            // 
-            this.gbx_folderContents.Controls.Add(this.lstbx_folderContents);
-            this.gbx_folderContents.Controls.Add(this.btn_manageFolderContents);
-            this.gbx_folderContents.Location = new System.Drawing.Point(337, 218);
-            this.gbx_folderContents.Name = "gbx_folderContents";
-            this.gbx_folderContents.Size = new System.Drawing.Size(200, 219);
-            this.gbx_folderContents.TabIndex = 7;
-            this.gbx_folderContents.TabStop = false;
-            this.gbx_folderContents.Text = "Folder Contents";
-            // 
-            // gbx_folderAttributes
-            // 
-            this.gbx_folderAttributes.Controls.Add(this.btn_changeClosedFolderIcon);
-            this.gbx_folderAttributes.Controls.Add(this.btn_changeOpenFolderIcon);
-            this.gbx_folderAttributes.Controls.Add(this.label6);
-            this.gbx_folderAttributes.Controls.Add(this.label5);
-            this.gbx_folderAttributes.Controls.Add(this.label4);
-            this.gbx_folderAttributes.Controls.Add(this.picbx_closedFolder);
-            this.gbx_folderAttributes.Controls.Add(this.picbx_openFolder);
-            this.gbx_folderAttributes.Controls.Add(this.txtbx_folderName);
-            this.gbx_folderAttributes.Controls.Add(this.label3);
-            this.gbx_folderAttributes.Location = new System.Drawing.Point(10, 248);
-            this.gbx_folderAttributes.Name = "gbx_folderAttributes";
-            this.gbx_folderAttributes.Size = new System.Drawing.Size(228, 168);
-            this.gbx_folderAttributes.TabIndex = 8;
-            this.gbx_folderAttributes.TabStop = false;
-            this.gbx_folderAttributes.Text = "Folder";
-            // 
-            // picbx_openFolder
-            // 
-            this.picbx_openFolder.Location = new System.Drawing.Point(6, 88);
-            this.picbx_openFolder.Name = "picbx_openFolder";
-            this.picbx_openFolder.Size = new System.Drawing.Size(50, 50);
-            this.picbx_openFolder.TabIndex = 6;
-            this.picbx_openFolder.TabStop = false;
-            // 
-            // picbx_closedFolder
-            // 
-            this.picbx_closedFolder.Location = new System.Drawing.Point(96, 88);
-            this.picbx_closedFolder.Name = "picbx_closedFolder";
-            this.picbx_closedFolder.Size = new System.Drawing.Size(50, 50);
-            this.picbx_closedFolder.TabIndex = 7;
-            this.picbx_closedFolder.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 69);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Folder Icons";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 145);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Open";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(96, 144);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Closed";
-            // 
-            // btn_changeOpenFolderIcon
-            // 
-            this.btn_changeOpenFolderIcon.Location = new System.Drawing.Point(62, 115);
-            this.btn_changeOpenFolderIcon.Name = "btn_changeOpenFolderIcon";
-            this.btn_changeOpenFolderIcon.Size = new System.Drawing.Size(27, 23);
-            this.btn_changeOpenFolderIcon.TabIndex = 11;
-            this.btn_changeOpenFolderIcon.Text = "...";
-            this.btn_changeOpenFolderIcon.UseVisualStyleBackColor = true;
-            // 
-            // btn_changeClosedFolderIcon
-            // 
-            this.btn_changeClosedFolderIcon.Location = new System.Drawing.Point(152, 115);
-            this.btn_changeClosedFolderIcon.Name = "btn_changeClosedFolderIcon";
-            this.btn_changeClosedFolderIcon.Size = new System.Drawing.Size(27, 23);
-            this.btn_changeClosedFolderIcon.TabIndex = 12;
-            this.btn_changeClosedFolderIcon.Text = "...";
-            this.btn_changeClosedFolderIcon.UseVisualStyleBackColor = true;
-            // 
-            // flpanel_items
-            // 
-            this.flpanel_items.Location = new System.Drawing.Point(6, 6);
-            this.flpanel_items.Name = "flpanel_items";
-            this.flpanel_items.Size = new System.Drawing.Size(379, 213);
-            this.flpanel_items.TabIndex = 15;
-            // 
-            // flp_folders
-            // 
-            this.flp_folders.Location = new System.Drawing.Point(10, 7);
-            this.flp_folders.Name = "flp_folders";
-            this.flp_folders.Size = new System.Drawing.Size(527, 204);
-            this.flp_folders.TabIndex = 0;
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -517,13 +520,13 @@
             this.gbx_symbol.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picbx_itemSymbol)).EndInit();
             this.tabpage_folder.ResumeLayout(false);
-            this.tabpage_launcher.ResumeLayout(false);
-            this.tabpage_launcher.PerformLayout();
-            this.gbx_folderContents.ResumeLayout(false);
             this.gbx_folderAttributes.ResumeLayout(false);
             this.gbx_folderAttributes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picbx_openFolder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbx_closedFolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picbx_openFolder)).EndInit();
+            this.gbx_folderContents.ResumeLayout(false);
+            this.tabpage_launcher.ResumeLayout(false);
+            this.tabpage_launcher.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -555,7 +558,7 @@
         private System.Windows.Forms.Button btn_restore;
         private System.Windows.Forms.Button btn_chooseSaveDirectory;
         private System.Windows.Forms.TextBox txtbx_saveDirectory;
-        private Controls.ItemFlowLayoutPanel flp_folders;
+        private Controls.ItemFlowLayoutPanel flpanel_folders;
         private System.Windows.Forms.GroupBox gbx_folderAttributes;
         private System.Windows.Forms.Button btn_changeClosedFolderIcon;
         private System.Windows.Forms.Button btn_changeOpenFolderIcon;
