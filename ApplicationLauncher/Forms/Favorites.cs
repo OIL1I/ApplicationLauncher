@@ -10,9 +10,10 @@ namespace ApplicationLauncher.Forms
 {
     public partial class Favorites : Form
     {
-        Configuration config;
-        Rectangle screen;
-        bool shouldClose = false;
+        private Configuration config;
+        private Rectangle screen;
+        private bool shouldCloseApplication = false;
+        private bool shouldShowFavourites = true;
 
         public Favorites(string arg)
         {
@@ -21,7 +22,7 @@ namespace ApplicationLauncher.Forms
                 InitializeComponent();
             else
             {
-                shouldClose = true;
+                shouldCloseApplication = true;
                 this.Close();
             }
         }
@@ -46,7 +47,7 @@ namespace ApplicationLauncher.Forms
                         process.Start();
                     }
 
-                    shouldClose = true;
+                    shouldCloseApplication = true;
                     Application.Exit();
                     //SaveManager.SetPathsToDefault();
                     //config.AppSettings.Settings["CurrentSavePath"].Value = SaveManager.CurrentSavePath;
@@ -124,7 +125,9 @@ namespace ApplicationLauncher.Forms
             }
 
             this.Visible = false;
+            shouldShowFavourites = false;
             new AllApps().ShowDialog();
+            shouldShowFavourites = true;
             this.Visible = true;
 
             ReloadFavorites();
@@ -146,7 +149,7 @@ namespace ApplicationLauncher.Forms
                 config.AppSettings.Settings["Width"].Value = this.Size.Width.ToString();
                 config.AppSettings.Settings["Height"].Value = this.Size.Height.ToString();
                 config.Save(ConfigurationSaveMode.Modified);
-                shouldClose = true;
+                shouldCloseApplication = true;
                 Application.Exit();
             }
             catch (Exceptions.SavePathWasNotSetException ex)
@@ -195,14 +198,17 @@ namespace ApplicationLauncher.Forms
         private void ShowSettingsWindow_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+            shouldShowFavourites = false;
             new Settings().ShowDialog();
+            shouldShowFavourites = true;
             ReloadFavorites();
             this.Visible = true;
         }
 
         public void ShowFavoriteWindow_Click(object sender, EventArgs e)
         {
-            this.Visible = true;
+            if (shouldShowFavourites)
+                this.Visible = true;
         }
 
         private void btn_hide_Click(object sender, EventArgs e)
@@ -251,7 +257,7 @@ namespace ApplicationLauncher.Forms
 
         private void Favorites_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!shouldClose)
+            if (!shouldCloseApplication)
             {
                 this.Visible = false;
                 e.Cancel = true;
